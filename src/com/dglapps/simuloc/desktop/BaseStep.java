@@ -1,5 +1,7 @@
 package com.dglapps.simuloc.desktop;
 
+import org.omg.CORBA.FREE_MEM;
+
 import com.dglapps.simuloc.PositionReceiver;
 import com.dglapps.simuloc.Step;
 import com.dglapps.simuloc.StepListener;
@@ -15,7 +17,6 @@ public abstract class BaseStep implements Step {
 	@Override
 	public void setDuration(long seconds) {
 		this.totalTimeMillis = seconds * 1000;
-
 	}
 
 	@Override
@@ -46,7 +47,7 @@ public abstract class BaseStep implements Step {
 	}
 	
 	protected long getTimeBetweenPositions() {
-		return totalTimeMillis / getEstimatedPositions();
+		return 60000 / this.positionFrequency;
 	}
 	
 	protected long getEstimatedPositions() {
