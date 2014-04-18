@@ -21,4 +21,9 @@ public class AddressLocation {
 		this.position = position;
 	}
 	
+	@Override
+	public String toString() {
+		return (address != null ? address.toString() : "null") 
+				+ " (" + (position != null ? position.toString() : "null") + ")";
+	}
 }

@@ -15,6 +15,15 @@ public class Position {
 	
 	long time;
 
+	public Position() {
+
+	}
+	
+	public Position(double lat, double lng) {
+		this.latitude = lat;
+		this.longitude = lng;
+	}
+	
 	public String getSource() {
 		return source;
 	}
@@ -79,4 +88,8 @@ public class Position {
 		this.time = time;
 	}
 
+	public String toString() {
+		return latitude + "," + longitude;
+	}
+	
 }
