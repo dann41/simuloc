@@ -1,8 +1,10 @@
-package com.dglapps.simuloc.desktop;
+package com.dglapps.simuloc.steps;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.dglapps.simuloc.steps.BaseStep;
 
 public class BaseStepTest {
 

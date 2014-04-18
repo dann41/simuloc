@@ -1,14 +1,14 @@
-package com.dglapps.simuloc.desktop;
+package com.dglapps.simuloc.steps;
 
 import com.dglapps.simuloc.entities.Position;
 
-public class StopStep extends BaseStep implements Runnable {
+public class SingleRouteStep extends BaseStep implements Runnable {
 
 	private Position position;
 	
 	private boolean abort;
 	
-	public StopStep(Position p) {
+	public SingleRouteStep(Position p) {
 		this.position = p;
 		this.abort = false;
 	}	

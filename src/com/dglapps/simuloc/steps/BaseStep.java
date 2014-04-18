@@ -1,4 +1,4 @@
-package com.dglapps.simuloc.desktop;
+package com.dglapps.simuloc.steps;
 
 import com.dglapps.simuloc.PositionReceiver;
 import com.dglapps.simuloc.Step;

@@ -1,11 +1,13 @@
-package com.dglapps.simuloc.desktop;
+package com.dglapps.simuloc.steps;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.dglapps.simuloc.Step;
 import com.dglapps.simuloc.StepExecutor;
+import com.dglapps.simuloc.desktop.ConsolePositionReceiver;
 import com.dglapps.simuloc.entities.Position;
+import com.dglapps.simuloc.steps.StopStep;
 
 public class Test {
 

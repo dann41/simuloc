@@ -1,4 +1,4 @@
-package com.dglapps.simuloc.desktop;
+package com.dglapps.simuloc.steps;
 
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.mock;
@@ -11,6 +11,7 @@ import org.junit.Test;
 import com.dglapps.simuloc.PositionReceiver;
 import com.dglapps.simuloc.StepListener;
 import com.dglapps.simuloc.entities.Position;
+import com.dglapps.simuloc.steps.StopStep;
 
 public class StopStepTest {
 
