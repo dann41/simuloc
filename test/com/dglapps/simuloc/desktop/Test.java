@@ -3,9 +3,9 @@ package com.dglapps.simuloc.desktop;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dglapps.simuloc.Position;
 import com.dglapps.simuloc.Step;
 import com.dglapps.simuloc.StepExecutor;
+import com.dglapps.simuloc.entities.Position;
 
 public class Test {
 

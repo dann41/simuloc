@@ -1,6 +1,6 @@
 package com.dglapps.simuloc.desktop;
 
-import com.dglapps.simuloc.Position;
+import com.dglapps.simuloc.entities.Position;
 
 public class StopStep extends BaseStep implements Runnable {
 

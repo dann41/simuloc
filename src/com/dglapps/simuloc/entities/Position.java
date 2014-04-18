@@ -1,4 +1,4 @@
-package com.dglapps.simuloc;
+package com.dglapps.simuloc.entities;
 
 public class Position {
 

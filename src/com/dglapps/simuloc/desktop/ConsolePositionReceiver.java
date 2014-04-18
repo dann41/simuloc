@@ -1,7 +1,7 @@
 package com.dglapps.simuloc.desktop;
 
-import com.dglapps.simuloc.Position;
 import com.dglapps.simuloc.PositionReceiver;
+import com.dglapps.simuloc.entities.Position;
 
 public class ConsolePositionReceiver implements PositionReceiver {
 

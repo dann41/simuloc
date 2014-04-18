@@ -1,7 +1,5 @@
 package com.dglapps.simuloc.desktop;
 
-import org.omg.CORBA.FREE_MEM;
-
 import com.dglapps.simuloc.PositionReceiver;
 import com.dglapps.simuloc.Step;
 import com.dglapps.simuloc.StepListener;
