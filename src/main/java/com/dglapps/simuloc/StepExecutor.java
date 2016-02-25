@@ -11,9 +11,7 @@ public class StepExecutor implements StepListener {
 	}
 	
 	/**
-	 * Perform a long task 
-	 * @param iteratorSteps
-	 * @param receiver
+	 * Perform a long task
 	 */
 	public void execute() {
 		if (iterator != null && iterator.hasNext()) {
