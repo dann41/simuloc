@@ -1,95 +1,35 @@
 package com.dglapps.simuloc.entities;
 
-public class Position {
+public interface Position {
 
-	String source;
-	
-	double latitude;
-	double longitude;
-	double altitude;
-	
-	double speed;
-	double bearing;
-	
-	double error;
-	
-	long time;
+    /**
+     * @return latitude in decimal unit (e.g. 23.1345213)
+     */
+    double getLatitude();
 
-	public Position() {
+    /**
+     * @param latitude in decimal unit (e.g. 23.1345213)
+     */
+    void setLatitude(double latitude);
 
-	}
-	
-	public Position(double lat, double lng) {
-		this.latitude = lat;
-		this.longitude = lng;
-	}
-	
-	public String getSource() {
-		return source;
-	}
+    /**
+     * @return longitude in decimal unit (e.g. 23.1345213)
+     */
+    double getLongitude();
 
-	public void setSource(String source) {
-		this.source = source;
-	}
+    /**
+     * @param longitude in decimal unit (e.g. 23.1345213)
+     */
+    void setLongitude(double longitude);
 
-	public double getLatitude() {
-		return latitude;
-	}
+    /**
+     * @return altitude in meters
+     */
+    double getAltitude();
 
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
+    /**
+     * @param altitude in meters
+     */
+    void setAltitude(double altitude);
 
-	public double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-
-	public double getAltitude() {
-		return altitude;
-	}
-
-	public void setAltitude(double altitude) {
-		this.altitude = altitude;
-	}
-
-	public double getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(double speed) {
-		this.speed = speed;
-	}
-
-	public double getBearing() {
-		return bearing;
-	}
-
-	public void setBearing(double bearing) {
-		this.bearing = bearing;
-	}
-
-	public double getError() {
-		return error;
-	}
-
-	public void setError(double error) {
-		this.error = error;
-	}
-
-	public long getTime() {
-		return time;
-	}
-
-	public void setTime(long time) {
-		this.time = time;
-	}
-
-	public String toString() {
-		return latitude + "," + longitude;
-	}
-	
 }
