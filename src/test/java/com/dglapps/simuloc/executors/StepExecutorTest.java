@@ -1,7 +1,8 @@
-package com.dglapps.simuloc;
+package com.dglapps.simuloc.executors;
 
 import static org.mockito.Mockito.mock;
 
+import com.dglapps.simuloc.executors.StepExecutor;
 import org.junit.Test;
 
 public class StepExecutorTest {
