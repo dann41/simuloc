@@ -37,12 +37,9 @@ public abstract class BaseRulesExecutor implements RulesExecutor {
                 notifyRuleStart(rule);
 
                 // Do the work
-                List<DynamicPosition> positions = rule.generatePositions();
-                if (positions != null) {
-                    for (DynamicPosition position : positions) {
-                        execute(position);
-                        notifyPosition(position);
-                    }
+                for (DynamicPosition position : rule) {
+                    execute(position);
+                    notifyPosition(position);
                 }
 
                 notifyRuleEnd(rule);
