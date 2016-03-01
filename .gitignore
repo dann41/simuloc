@@ -1,2 +1,11 @@
+/gradle
+/.idea
+/gradlew
+/gradlew.bat
+/simuloc.iws
+/simuloc.iml
+/simuloc.ipr
 /target
 /bin
+/build
+/.gradle

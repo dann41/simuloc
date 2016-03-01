@@ -1,0 +1,29 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'jacoco'
+
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }
+}
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+dependencies {
+
+    compile 'com.google.code.geocoder-java:geocoder-java:0.15'
+
+    testCompile 'junit:junit:4.4'
+    testCompile 'org.mockito:mockito-all:1.8.4'
+
+}
