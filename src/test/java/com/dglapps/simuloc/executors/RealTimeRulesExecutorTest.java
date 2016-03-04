@@ -53,7 +53,7 @@ public class RealTimeRulesExecutorTest {
     @Test
     public void testExecutorOneRuleWithTwoPositions() {
 
-        RulesExecutorListener listener = git adspy(new ConsoleRulesExecutorListener(clock));
+        RulesExecutorListener listener = spy(new ConsoleRulesExecutorListener(clock));
         this.realTimeRulesExecutor.addListener(listener);
 
         Rule rule = Mockito.mock(Rule.class);
