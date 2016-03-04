@@ -2,6 +2,7 @@ package com.dglapps.simuloc.executors;
 
 import com.dglapps.simuloc.entities.DynamicPosition;
 import com.dglapps.simuloc.entities.PositionFactory;
+import com.dglapps.simuloc.listeners.ConsoleRulesExecutorListener;
 import com.dglapps.simuloc.listeners.RulesExecutorListener;
 import com.dglapps.simuloc.rules.Rule;
 import com.dglapps.simuloc.utils.ListUtils;
@@ -52,7 +53,7 @@ public class RealTimeRulesExecutorTest {
     @Test
     public void testExecutorOneRuleWithTwoPositions() {
 
-        RulesExecutorListener listener = Mockito.mock(RulesExecutorListener.class);
+        RulesExecutorListener listener = git adspy(new ConsoleRulesExecutorListener(clock));
         this.realTimeRulesExecutor.addListener(listener);
 
         Rule rule = Mockito.mock(Rule.class);
