@@ -25,13 +25,17 @@ public class RealTimeRulesExecutor extends BaseRulesExecutor {
             } else {
                 long timeToSleep = position.getTime() - clock.millis();
                 if (timeToSleep > 0) {
-                    try {
-                        Thread.sleep(timeToSleep);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    delay(timeToSleep);
                 }
             }
+        }
+    }
+
+    protected void delay(long delay) {
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
