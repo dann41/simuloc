@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface Geocoding {
 
-    public AddressLocation addressToPosition(Address address);
+    AddressLocation addressToPosition(Address address);
 
-    public AddressLocation positionToAddress(Position position);
+    AddressLocation positionToAddress(Position position);
 
-    public List<AddressLocation> positionToAddresses(Position position);
+    List<AddressLocation> positionToAddresses(Position position);
 
-    public List<AddressLocation> positionToAddresses(Position position, int maxResults);
+    List<AddressLocation> positionToAddresses(Position position, int maxResults);
 }
