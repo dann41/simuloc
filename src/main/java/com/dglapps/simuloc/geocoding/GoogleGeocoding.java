@@ -4,7 +4,6 @@ import com.dglapps.simuloc.entities.Address;
 import com.dglapps.simuloc.entities.AddressLocation;
 import com.dglapps.simuloc.entities.Position;
 import com.dglapps.simuloc.entities.PositionFactory;
-import com.google.code.geocoder.AdvancedGeoCoder;
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.*;
@@ -77,8 +76,7 @@ public class GoogleGeocoding implements Geocoding {
 
         for (GeocoderResult result : response.getResults()) {
             String formattedAddress = result.getFormattedAddress();
-            Address address = new Address();
-            address.setAddress(formattedAddress);
+            Address address = new Address(formattedAddress);
 
             AddressLocation addressLocation = new AddressLocation();
             addressLocation.setAddress(address);
@@ -107,8 +105,7 @@ public class GoogleGeocoding implements Geocoding {
                 return list;
 
             String formattedAddress = result.getFormattedAddress();
-            Address address = new Address();
-            address.setAddress(formattedAddress);
+            Address address = new Address(formattedAddress);
 
             AddressLocation addressLocation = new AddressLocation();
             addressLocation.setAddress(address);

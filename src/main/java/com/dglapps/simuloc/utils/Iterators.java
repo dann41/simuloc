@@ -8,8 +8,8 @@ import java.util.*;
 public class Iterators {
 
     public static <E> Iterator<E> concat(final Iterator<E>... iterators) {
-        return new Iterator<E>() {
-            private Queue<Iterator<E>> queue = new LinkedList<Iterator<E>>(Arrays.asList(iterators));
+        return new Iterator<>() {
+            private Queue<Iterator<E>> queue = new LinkedList<>(Arrays.asList(iterators));
 
             public boolean hasNext() {
                 // If this returns true, the head of the queue will have a next element

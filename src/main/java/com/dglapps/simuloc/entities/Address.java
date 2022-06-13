@@ -2,25 +2,18 @@ package com.dglapps.simuloc.entities;
 
 public class Address {
 
-    String address;
+    private final String value;
 
-    public Address() {
-    }
-
-    public Address(String address) {
-        this.address = address;
+    public Address(String value) {
+        this.value = value;
     }
 
     public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+        return value;
     }
 
     @Override
     public String toString() {
-        return address;
+        return value;
     }
 }
