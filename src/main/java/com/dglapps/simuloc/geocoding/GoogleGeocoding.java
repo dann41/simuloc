@@ -1,10 +1,15 @@
 package com.dglapps.simuloc.geocoding;
 
-import com.dglapps.simuloc.entities.*;
+import com.dglapps.simuloc.entities.Address;
+import com.dglapps.simuloc.entities.AddressLocation;
+import com.dglapps.simuloc.entities.Position;
+import com.dglapps.simuloc.entities.PositionFactory;
+import com.google.code.geocoder.AdvancedGeoCoder;
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.*;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,36 +17,42 @@ import java.util.Locale;
 
 public class GoogleGeocoding implements Geocoding {
 
-    Geocoder geocoder;
-    Locale locale;
+    private final Geocoder geocoder;
+    private final Locale locale;
+
+    public GoogleGeocoding(Locale locale, Geocoder geocoder) {
+        this.locale = locale;
+        this.geocoder = geocoder;
+    }
 
     public GoogleGeocoding(Locale locale) {
-        this.geocoder = new Geocoder();
-        this.locale = locale;
+        this(locale, new Geocoder());
     }
 
     @Override
     public AddressLocation addressToPosition(Address address) {
-        if (address != null) {
-            GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(address.getAddress())
-                    .setLanguage(locale.getCountry())
-                    .getGeocoderRequest();
-            GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
-            if (geocoderResponse != null) {
-                for (GeocoderResult result : geocoderResponse.getResults()) {
-                    GeocoderGeometry geometry = result.getGeometry();
-                    if (geometry != null) {
-                        LatLng latLng = geometry.getLocation();
-                        Position position = PositionFactory.createPosition(latLng.getLat().doubleValue(), latLng.getLng().doubleValue());
+        if (address == null) {
+            return null;
+        }
 
-                        AddressLocation addressLocation = new AddressLocation();
-                        addressLocation.setAddress(address);
-                        addressLocation.setPosition(position);
-                        return addressLocation;
-                    }
-                }
+        GeocodeResponse geocoderResponse = getGeocodeFromAddress(address);
+        if (geocoderResponse == null) {
+            return null;
+        }
+
+        for (GeocoderResult result : geocoderResponse.getResults()) {
+            GeocoderGeometry geometry = result.getGeometry();
+            if (geometry != null) {
+                LatLng latLng = geometry.getLocation();
+                Position position = PositionFactory.createPosition(latLng.getLat().doubleValue(), latLng.getLng().doubleValue());
+
+                AddressLocation addressLocation = new AddressLocation();
+                addressLocation.setAddress(address);
+                addressLocation.setPosition(position);
+                return addressLocation;
             }
         }
+
         return null;
     }
 
@@ -53,57 +64,82 @@ public class GoogleGeocoding implements Geocoding {
 
     @Override
     public List<AddressLocation> positionToAddresses(Position position) {
-        List<AddressLocation> list = new ArrayList<AddressLocation>();
+        List<AddressLocation> list = new ArrayList<>();
 
-        if (position != null) {
-            LatLng latLng = new LatLng(BigDecimal.valueOf(position.getLatitude()),
-                    BigDecimal.valueOf(position.getLongitude()));
-            GeocoderRequest request = new GeocoderRequestBuilder().setLocation(latLng).getGeocoderRequest();
-            GeocodeResponse response = geocoder.geocode(request);
-            if (response != null) {
-                for (GeocoderResult result : response.getResults()) {
-                    String formattedAddress = result.getFormattedAddress();
-                    Address address = new Address();
-                    address.setAddress(formattedAddress);
+        if (position == null) {
+            return list;
+        }
 
-                    AddressLocation addressLocation = new AddressLocation();
-                    addressLocation.setAddress(address);
-                    addressLocation.setPosition(position);
+        GeocodeResponse response = getGeocodeFromPosition(position);
+        if (response == null) {
+            return list;
+        }
 
-                    list.add(addressLocation);
-                }
-            }
+        for (GeocoderResult result : response.getResults()) {
+            String formattedAddress = result.getFormattedAddress();
+            Address address = new Address();
+            address.setAddress(formattedAddress);
+
+            AddressLocation addressLocation = new AddressLocation();
+            addressLocation.setAddress(address);
+            addressLocation.setPosition(position);
+
+            list.add(addressLocation);
         }
         return list;
     }
 
     @Override
-    public List<AddressLocation> positionToAddresses(Position position,
-                                                     int maxResults) {
-        List<AddressLocation> list = new ArrayList<AddressLocation>();
+    public List<AddressLocation> positionToAddresses(Position position, int maxResults) {
+        List<AddressLocation> list = new ArrayList<>();
 
-        if (position != null) {
-            LatLng latLng = new LatLng(BigDecimal.valueOf(position.getLatitude()),
-                    BigDecimal.valueOf(position.getLongitude()));
-            GeocoderRequest request = new GeocoderRequestBuilder().setLocation(latLng).getGeocoderRequest();
-            GeocodeResponse response = geocoder.geocode(request);
-            if (response != null) {
-                for (GeocoderResult result : response.getResults()) {
-                    if (list.size() == maxResults)
-                        return list;
+        if (position == null) {
+            return list;
+        }
 
-                    String formattedAddress = result.getFormattedAddress();
-                    Address address = new Address();
-                    address.setAddress(formattedAddress);
+        GeocodeResponse response = getGeocodeFromPosition(position);
+        if (response == null) {
+            return list;
+        }
 
-                    AddressLocation addressLocation = new AddressLocation();
-                    addressLocation.setAddress(address);
-                    addressLocation.setPosition(position);
+        for (GeocoderResult result : response.getResults()) {
+            if (list.size() == maxResults)
+                return list;
 
-                    list.add(addressLocation);
-                }
-            }
+            String formattedAddress = result.getFormattedAddress();
+            Address address = new Address();
+            address.setAddress(formattedAddress);
+
+            AddressLocation addressLocation = new AddressLocation();
+            addressLocation.setAddress(address);
+            addressLocation.setPosition(position);
+
+            list.add(addressLocation);
         }
         return list;
+    }
+
+    private GeocodeResponse getGeocodeFromPosition(Position position) {
+        LatLng latLng = new LatLng(BigDecimal.valueOf(position.getLatitude()),
+                BigDecimal.valueOf(position.getLongitude()));
+        GeocoderRequest request = new GeocoderRequestBuilder().setLocation(latLng).getGeocoderRequest();
+        try {
+            return geocoder.geocode(request);
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    private GeocodeResponse getGeocodeFromAddress(Address address) {
+        GeocoderRequest geocoderRequest = new GeocoderRequestBuilder()
+                .setAddress(address.getAddress())
+                .setLanguage(locale.getCountry())
+                .getGeocoderRequest();
+
+        try {
+            return geocoder.geocode(geocoderRequest);
+        } catch (IOException e) {
+            return null;
+        }
     }
 }

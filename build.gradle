@@ -8,15 +8,15 @@ repositories {
 
 test {
     reports {
-        junitXml.enabled = true
-        html.enabled = true
+        junitXml.required = true
+        html.required = true
     }
 }
 
 jacocoTestReport {
     reports {
-        xml.enabled = true
-        html.enabled = true
+        xml.required = true
+        html.required = true
     }
 }
 
@@ -24,9 +24,9 @@ check.dependsOn jacocoTestReport
 
 dependencies {
 
-    compile 'com.google.code.geocoder-java:geocoder-java:0.15'
+    implementation 'com.google.code.geocoder-java:geocoder-java:0.16'
 
-    testCompile 'junit:junit:4.4'
-    testCompile 'org.mockito:mockito-all:1.8.4'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-all:1.10.19'
 
 }
