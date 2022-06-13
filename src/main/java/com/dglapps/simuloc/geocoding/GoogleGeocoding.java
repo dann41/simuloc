@@ -24,10 +24,6 @@ public class GoogleGeocoding implements Geocoding {
         this.geocoder = geocoder;
     }
 
-    public GoogleGeocoding(Locale locale) {
-        this(locale, new Geocoder());
-    }
-
     @Override
     public AddressLocation addressToPosition(Address address) {
         if (address == null) {
@@ -45,10 +41,7 @@ public class GoogleGeocoding implements Geocoding {
                 LatLng latLng = geometry.getLocation();
                 Position position = PositionFactory.createPosition(latLng.getLat().doubleValue(), latLng.getLng().doubleValue());
 
-                AddressLocation addressLocation = new AddressLocation();
-                addressLocation.setAddress(address);
-                addressLocation.setPosition(position);
-                return addressLocation;
+                return new AddressLocation(address, position);
             }
         }
 
@@ -78,9 +71,7 @@ public class GoogleGeocoding implements Geocoding {
             String formattedAddress = result.getFormattedAddress();
             Address address = new Address(formattedAddress);
 
-            AddressLocation addressLocation = new AddressLocation();
-            addressLocation.setAddress(address);
-            addressLocation.setPosition(position);
+            AddressLocation addressLocation = new AddressLocation(address, position);
 
             list.add(addressLocation);
         }
@@ -106,10 +97,7 @@ public class GoogleGeocoding implements Geocoding {
 
             String formattedAddress = result.getFormattedAddress();
             Address address = new Address(formattedAddress);
-
-            AddressLocation addressLocation = new AddressLocation();
-            addressLocation.setAddress(address);
-            addressLocation.setPosition(position);
+            AddressLocation addressLocation = new AddressLocation(address, position);
 
             list.add(addressLocation);
         }

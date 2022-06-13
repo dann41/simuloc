@@ -2,23 +2,20 @@ package com.dglapps.simuloc.entities;
 
 public class AddressLocation {
 
-    Address address;
-    Position position;
+    private final Address address;
+    private final Position position;
+
+    public AddressLocation(Address address, Position position) {
+        this.address = address;
+        this.position = position;
+    }
 
     public Address getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
     public Position getPosition() {
         return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
     }
 
     @Override
