@@ -1,7 +1,6 @@
 package com.dglapps.simuloc.rules;
 
 import com.dglapps.simuloc.entities.DynamicPosition;
-import com.dglapps.simuloc.entities.Position;
 import com.dglapps.simuloc.entities.PositionFactory;
 
 import java.util.LinkedList;
@@ -12,7 +11,7 @@ import java.util.List;
  */
 public class RulesBuilder {
 
-    private final List<Rule> rules = new LinkedList<Rule>();
+    private final List<Rule> rules = new LinkedList<>();
     private DynamicPosition lastPosition;
 
 
@@ -47,6 +46,6 @@ public class RulesBuilder {
     }
 
     public List<Rule> build() {
-        return new LinkedList<Rule>(rules);
+        return new LinkedList<>(rules);
     }
 }

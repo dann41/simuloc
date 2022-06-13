@@ -19,10 +19,10 @@ public class IteratorsTest {
     public void testConcat() {
         String[] testData = new String[] {"a", "b", "c"};
 
-        List<String> list1 = new ArrayList<String>();
+        List<String> list1 = new ArrayList<>();
         list1.add(testData[0]);
 
-        List<String> list2 = new LinkedList<String>();
+        List<String> list2 = new LinkedList<>();
         list2.add(testData[1]);
         list2.add(testData[2]);
 
@@ -39,8 +39,8 @@ public class IteratorsTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void testContactRemoveUnsupported() {
-        List<String> list1 = new ArrayList<String>();
-        List<String> list2 = new LinkedList<String>();
+        List<String> list1 = new ArrayList<>();
+        List<String> list2 = new LinkedList<>();
 
         Iterator<String> result = Iterators.concat(list1.iterator(), list2.iterator());
         result.remove();

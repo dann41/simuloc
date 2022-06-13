@@ -21,7 +21,7 @@ public class CompositeRule implements Rule {
 
     @Override
     public List<DynamicPosition> generatePositions() {
-        List<DynamicPosition> positions = new ArrayList<DynamicPosition>();
+        List<DynamicPosition> positions = new ArrayList<>();
         for (Rule rule : rules) {
             positions.addAll(rule.generatePositions());
         }
@@ -40,12 +40,11 @@ public class CompositeRule implements Rule {
 
     @Override
     public Iterator<DynamicPosition> iterator() {
-        List<Iterator<DynamicPosition>> iterators = new LinkedList<Iterator<DynamicPosition>>();
+        List<Iterator<DynamicPosition>> iterators = new LinkedList<>();
         for (Rule rule : rules) {
             iterators.add(rule.iterator());
         }
-        Iterator<DynamicPosition>[] array = new Iterator[iterators.size()];
 
-        return Iterators.concat(iterators.toArray(array));
+        return Iterators.concat(iterators.toArray(new Iterator[iterators.size()]));
     }
 }

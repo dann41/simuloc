@@ -1,9 +1,7 @@
 package com.dglapps.simuloc.rules;
 
 import com.dglapps.simuloc.entities.DynamicPosition;
-import com.dglapps.simuloc.entities.Position;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**

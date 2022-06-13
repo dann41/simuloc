@@ -12,7 +12,7 @@ import java.util.List;
  */
 public abstract class BaseRulesExecutor implements RulesExecutor {
 
-    private List<RulesExecutorListener> listeners = new LinkedList<RulesExecutorListener>();
+    private final List<RulesExecutorListener> listeners = new LinkedList<>();
 
     @Override
     public final synchronized void addListener(final RulesExecutorListener listener) {
@@ -23,27 +23,28 @@ public abstract class BaseRulesExecutor implements RulesExecutor {
 
     @Override
     public final synchronized void removeListener(RulesExecutorListener listener) {
-        if (listeners.contains(listener)) {
-            listeners.remove(listener);
-        }
+        listeners.remove(listener);
     }
 
     @Override
     public final void execute(List<Rule> rules) {
         notifyStart();
 
-        if (rules != null) {
-            for (Rule rule : rules) {
-                notifyRuleStart(rule);
+        if (rules == null) {
+            notifyEnd();
+            return;
+        }
 
-                // Do the work
-                for (DynamicPosition position : rule) {
-                    execute(position);
-                    notifyPosition(position);
-                }
+        for (Rule rule : rules) {
+            notifyRuleStart(rule);
 
-                notifyRuleEnd(rule);
+            // Do the work
+            for (DynamicPosition position : rule) {
+                execute(position);
+                notifyPosition(position);
             }
+
+            notifyRuleEnd(rule);
         }
 
         notifyEnd();

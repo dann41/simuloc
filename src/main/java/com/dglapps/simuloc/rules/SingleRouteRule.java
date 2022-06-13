@@ -40,7 +40,7 @@ public class SingleRouteRule implements Rule {
 
     @Override
     public List<DynamicPosition> generatePositions() {
-        final List<DynamicPosition> positions = new LinkedList<DynamicPosition>();
+        final List<DynamicPosition> positions = new LinkedList<>();
         for (DynamicPosition p : this) {
             positions.add(p);
         }

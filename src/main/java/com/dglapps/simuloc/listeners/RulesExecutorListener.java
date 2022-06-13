@@ -1,7 +1,6 @@
 package com.dglapps.simuloc.listeners;
 
 import com.dglapps.simuloc.entities.DynamicPosition;
-import com.dglapps.simuloc.entities.Position;
 import com.dglapps.simuloc.executors.RulesExecutor;
 import com.dglapps.simuloc.rules.Rule;
 

@@ -99,7 +99,7 @@ public class TestGoogleGeocoding {
     public void testPositionToAddresses() {
         Position position = PositionFactory.createPosition(41.386919, 2.170047); // Plaça Catalunya
         List<AddressLocation> results = geocoding.positionToAddresses(position);
-        assertTrue(!results.isEmpty());
+        assertFalse(results.isEmpty());
     }
 
     @Test

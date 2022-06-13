@@ -1,7 +1,6 @@
 package com.dglapps.simuloc.rules;
 
 import com.dglapps.simuloc.entities.DynamicPosition;
-import com.dglapps.simuloc.entities.Position;
 import com.dglapps.simuloc.entities.PositionFactory;
 
 import java.util.Iterator;
@@ -40,7 +39,7 @@ public class StandstillRule implements Rule {
 
     @Override
     public List<DynamicPosition> generatePositions() {
-        List<DynamicPosition> positions = new LinkedList<DynamicPosition>();
+        List<DynamicPosition> positions = new LinkedList<>();
         for (DynamicPosition pos : this) {
             positions.add(pos);
         }

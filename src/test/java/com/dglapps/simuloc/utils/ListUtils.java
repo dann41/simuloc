@@ -1,6 +1,7 @@
 package com.dglapps.simuloc.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -9,12 +10,8 @@ import java.util.List;
 public class ListUtils {
 
     public static <E> List<E> arrayToList(E... eArray) {
-        List<E> list = new ArrayList<E>(eArray.length);
-
-        for (E e : eArray) {
-            list.add(e);
-        }
-
+        List<E> list = new ArrayList<>(eArray.length);
+        list.addAll(Arrays.asList(eArray));
         return list;
     }
 }

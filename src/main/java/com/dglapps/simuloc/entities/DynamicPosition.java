@@ -5,7 +5,7 @@ package com.dglapps.simuloc.entities;
  */
 public class DynamicPosition implements Position {
 
-    private Position position;
+    private final Position position;
 
     private String source;
     private double speed;
