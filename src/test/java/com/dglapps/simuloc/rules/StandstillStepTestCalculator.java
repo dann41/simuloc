@@ -3,18 +3,18 @@ package com.dglapps.simuloc.rules;
 import com.dglapps.simuloc.AssertUtils;
 import com.dglapps.simuloc.entities.DynamicPosition;
 import com.dglapps.simuloc.entities.PositionFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by dani on 26/2/16.
  */
-public class StandstillRuleTest {
+public class StandstillStepTestCalculator {
 
-    private StandstillRule rule;
+    private StandstillStepCalculator rule;
 
     @Test
     public void testStandstillRuleTwoPositionsWhenThroughputGreaterThanDuration() {
@@ -22,7 +22,7 @@ public class StandstillRuleTest {
         long duration = 10000;
         long throughput = 200000;
 
-        rule = new StandstillRule(p, duration, throughput);
+        rule = new StandstillStepCalculator(p, duration, throughput);
 
         List<DynamicPosition> result = rule.generatePositions();
         assertEquals(2, result.size());
@@ -43,7 +43,7 @@ public class StandstillRuleTest {
         long duration = 10000;
         long throughput = 2000;
 
-        rule = new StandstillRule(p, duration, throughput);
+        rule = new StandstillStepCalculator(p, duration, throughput);
 
         List<DynamicPosition> result = rule.generatePositions();
         assertEquals(2 + 5, result.size());
@@ -57,7 +57,7 @@ public class StandstillRuleTest {
         long duration = 10000;
         long throughput = 3000;
 
-        rule = new StandstillRule(p, duration, throughput);
+        rule = new StandstillStepCalculator(p, duration, throughput);
 
         List<DynamicPosition> result = rule.generatePositions();
         assertEquals(2 + 3, result.size());
@@ -71,7 +71,7 @@ public class StandstillRuleTest {
         long duration = 10000;
         long throughput = 200000;
 
-        rule = new StandstillRule(p, duration, throughput);
+        rule = new StandstillStepCalculator(p, duration, throughput);
 
         AssertUtils.assertEqualsPosition(p, rule.getFirstPosition());
     }
@@ -82,7 +82,7 @@ public class StandstillRuleTest {
         long duration = 10000;
         long throughput = 200000;
 
-        rule = new StandstillRule(p, duration, throughput);
+        rule = new StandstillStepCalculator(p, duration, throughput);
 
         DynamicPosition expected = PositionFactory.createDynamicPosition(p.getLatitude(), p.getLongitude(), p.getTime() + duration);
 

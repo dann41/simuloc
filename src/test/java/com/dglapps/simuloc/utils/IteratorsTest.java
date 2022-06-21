@@ -1,14 +1,13 @@
 package com.dglapps.simuloc.utils;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by dani on 3/3/16.
@@ -37,12 +36,13 @@ public class IteratorsTest {
         assertEquals(testData.length, i);
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testContactRemoveUnsupported() {
         List<String> list1 = new ArrayList<>();
         List<String> list2 = new LinkedList<>();
 
         Iterator<String> result = Iterators.concat(list1.iterator(), list2.iterator());
-        result.remove();
+
+        assertThrows(UnsupportedOperationException.class, result::remove);
     }
 }

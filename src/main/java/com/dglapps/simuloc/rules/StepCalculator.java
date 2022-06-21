@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by dani on 25/2/16.
  */
-public interface Rule extends Iterable<DynamicPosition> {
+public interface StepCalculator extends Iterable<DynamicPosition> {
 
     List<DynamicPosition> generatePositions();
 

@@ -2,9 +2,9 @@ package com.dglapps.simuloc;
 
 import com.dglapps.simuloc.entities.DynamicPosition;
 import com.dglapps.simuloc.entities.PositionFactory;
-import com.dglapps.simuloc.executors.RealTimeRulesExecutor;
+import com.dglapps.simuloc.executors.RealTimeTripReplay;
 import com.dglapps.simuloc.listeners.ConsoleRulesExecutorListener;
-import com.dglapps.simuloc.rules.RulesBuilder;
+import com.dglapps.simuloc.rules.TripBuilder;
 
 import java.time.Clock;
 
@@ -16,11 +16,11 @@ public class Test {
 
         DynamicPosition p = getPosition(clock.millis());
 
-        RulesBuilder builder = new RulesBuilder(p);
-        builder.addStandstillRule(5000, 1000)
-                .addSingleRouteRule(getPosition(2.555646, 38.45384), 20000, 1000);
+        TripBuilder builder = new TripBuilder(p);
+        builder.addStandstillStep(5000, 1000)
+                .addStraightStep(getPosition(2.555646, 38.45384), 20000, 1000);
 
-        RealTimeRulesExecutor executor = new RealTimeRulesExecutor(clock);
+        RealTimeTripReplay executor = new RealTimeTripReplay(clock);
         executor.addListener(listener);
         executor.execute(builder.build());
     }

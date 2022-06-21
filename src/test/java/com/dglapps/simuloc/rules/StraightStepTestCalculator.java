@@ -3,19 +3,19 @@ package com.dglapps.simuloc.rules;
 import com.dglapps.simuloc.AssertUtils;
 import com.dglapps.simuloc.entities.DynamicPosition;
 import com.dglapps.simuloc.entities.PositionFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Created by dani on 26/2/16.
  */
-public class SingleRouteRuleTest {
+public class StraightStepTestCalculator {
 
-    private SingleRouteRule rule;
+    private StraightStepCalculator rule;
 
     @Test
     public void testThroughputGreaterThanDurationGenerates2Positions() {
@@ -24,7 +24,7 @@ public class SingleRouteRuleTest {
         DynamicPosition src = PositionFactory.createDynamicPosition(0.0, 0.0, 0);
         DynamicPosition dest = PositionFactory.createDynamicPosition(0.0, 0.0, 1000);
 
-        rule = new SingleRouteRule(src, dest, duration, throughput);
+        rule = new StraightStepCalculator(src, dest, duration, throughput);
 
         List<DynamicPosition> result = rule.generatePositions();
         assertNotNull(result);
@@ -39,7 +39,7 @@ public class SingleRouteRuleTest {
         DynamicPosition src = PositionFactory.createDynamicPosition(0.0, 0.0, 0);
         DynamicPosition dest = PositionFactory.createDynamicPosition(0.0, 0.0, 5000);
 
-        rule = new SingleRouteRule(src, dest, duration, throughput);
+        rule = new StraightStepCalculator(src, dest, duration, throughput);
 
         List<DynamicPosition> result = rule.generatePositions();
         assertNotNull(result);
@@ -54,7 +54,7 @@ public class SingleRouteRuleTest {
         DynamicPosition src = PositionFactory.createDynamicPosition(0.0, 0.0, 0);
         DynamicPosition dest = PositionFactory.createDynamicPosition(0.0, 0.0, 1000);
 
-        rule = new SingleRouteRule(src, dest, duration, throughput);
+        rule = new StraightStepCalculator(src, dest, duration, throughput);
 
         AssertUtils.assertEqualsPosition(src, rule.getFirstPosition());
     }
@@ -66,7 +66,7 @@ public class SingleRouteRuleTest {
         DynamicPosition src = PositionFactory.createDynamicPosition(0.0, 0.0, 0);
         DynamicPosition dest = PositionFactory.createDynamicPosition(0.0, 0.0, 1000);
 
-        rule = new SingleRouteRule(src, dest, duration, throughput);
+        rule = new StraightStepCalculator(src, dest, duration, throughput);
 
         AssertUtils.assertEqualsPosition(dest, rule.getLastPosition());
     }

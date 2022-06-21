@@ -1,8 +1,8 @@
 package com.dglapps.simuloc.listeners;
 
 import com.dglapps.simuloc.entities.DynamicPosition;
-import com.dglapps.simuloc.executors.RulesExecutor;
-import com.dglapps.simuloc.rules.Rule;
+import com.dglapps.simuloc.executors.TripReplay;
+import com.dglapps.simuloc.rules.StepCalculator;
 
 import java.time.Clock;
 
@@ -16,30 +16,30 @@ public class ConsoleRulesExecutorListener implements RulesExecutorListener {
     }
 
     @Override
-    public void onExecutorStart(RulesExecutor executor) {
+    public void onExecutorStart(TripReplay executor) {
         System.out.println("Executor started");
         start = System.currentTimeMillis();
     }
 
     @Override
-    public void onRuleStart(RulesExecutor executor, Rule rule) {
+    public void onRuleStart(TripReplay executor, StepCalculator stepCalculator) {
         System.out.println("Rule started");
     }
 
     @Override
-    public void onPositionGenerated(RulesExecutor executor, DynamicPosition position) {
+    public void onPositionGenerated(TripReplay executor, DynamicPosition position) {
         long now = clock.millis();
         System.out.println(position.getLatitude() + "," + position.getLongitude() + "," + position.getTime() + " " + position
                 .getSpeed() + " " + (now - position.getTime()));
     }
 
     @Override
-    public void onRuleEnd(RulesExecutor executor, Rule rule) {
+    public void onRuleEnd(TripReplay executor, StepCalculator stepCalculator) {
         System.out.println("Rule ended");
     }
 
     @Override
-    public void onExecutorEnd(RulesExecutor executor) {
+    public void onExecutorEnd(TripReplay executor) {
         long end = clock.millis();
         System.out.println("Executor finished. Execution took " + (end - start) + " ms.");
 

@@ -2,7 +2,7 @@ package com.dglapps.simuloc.executors;
 
 import com.dglapps.simuloc.entities.DynamicPosition;
 import com.dglapps.simuloc.listeners.RulesExecutorListener;
-import com.dglapps.simuloc.rules.Rule;
+import com.dglapps.simuloc.rules.StepCalculator;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by dani on 25/2/16.
  */
-public abstract class BaseRulesExecutor implements RulesExecutor {
+public abstract class BaseTripReplay implements TripReplay {
 
     private final List<RulesExecutorListener> listeners = new LinkedList<>();
 
@@ -27,38 +27,38 @@ public abstract class BaseRulesExecutor implements RulesExecutor {
     }
 
     @Override
-    public final void execute(List<Rule> rules) {
+    public final void execute(List<StepCalculator> stepCalculators) {
         notifyStart();
 
-        if (rules == null) {
+        if (stepCalculators == null) {
             notifyEnd();
             return;
         }
 
-        for (Rule rule : rules) {
-            notifyRuleStart(rule);
+        for (StepCalculator stepCalculator : stepCalculators) {
+            notifyRuleStart(stepCalculator);
 
             // Do the work
-            for (DynamicPosition position : rule) {
+            for (DynamicPosition position : stepCalculator) {
                 execute(position);
                 notifyPosition(position);
             }
 
-            notifyRuleEnd(rule);
+            notifyRuleEnd(stepCalculator);
         }
 
         notifyEnd();
     }
 
-    private synchronized void notifyRuleStart(Rule rule) {
+    private synchronized void notifyRuleStart(StepCalculator stepCalculator) {
         for (RulesExecutorListener listener : listeners) {
-            listener.onRuleStart(this, rule);
+            listener.onRuleStart(this, stepCalculator);
         }
     }
 
-    private synchronized void notifyRuleEnd(Rule rule) {
+    private synchronized void notifyRuleEnd(StepCalculator stepCalculator) {
         for (RulesExecutorListener listener : listeners) {
-            listener.onRuleEnd(this, rule);
+            listener.onRuleEnd(this, stepCalculator);
         }
     }
 

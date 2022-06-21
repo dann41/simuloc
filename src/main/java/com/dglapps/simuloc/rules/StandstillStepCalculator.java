@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by dani on 25/2/16.
  */
-public class StandstillRule implements Rule {
+public class StandstillStepCalculator implements StepCalculator {
 
     private final DynamicPosition position;
     private final long duration;
@@ -21,7 +21,7 @@ public class StandstillRule implements Rule {
      * @param duration   in milliseconds
      * @param throughput in milliseconds/position
      */
-    public StandstillRule(DynamicPosition position, long duration, long throughput) {
+    public StandstillStepCalculator(DynamicPosition position, long duration, long throughput) {
         this.position = position;
         this.duration = duration;
         this.throughput = throughput;

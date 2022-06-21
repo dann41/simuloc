@@ -11,38 +11,38 @@ import java.util.List;
 /**
  * Created by dani on 2/3/16.
  */
-public class CompositeRule implements Rule {
+public class CompositeStepCalculator implements StepCalculator {
 
-    private final Rule[] rules;
+    private final StepCalculator[] stepCalculators;
 
-    public CompositeRule(Rule... rules) {
-        this.rules = rules;
+    public CompositeStepCalculator(StepCalculator... stepCalculators) {
+        this.stepCalculators = stepCalculators;
     }
 
     @Override
     public List<DynamicPosition> generatePositions() {
         List<DynamicPosition> positions = new ArrayList<>();
-        for (Rule rule : rules) {
-            positions.addAll(rule.generatePositions());
+        for (StepCalculator stepCalculator : stepCalculators) {
+            positions.addAll(stepCalculator.generatePositions());
         }
         return positions;
     }
 
     @Override
     public DynamicPosition getFirstPosition() {
-        return rules.length > 0 ? rules[0].getFirstPosition() : null;
+        return stepCalculators.length > 0 ? stepCalculators[0].getFirstPosition() : null;
     }
 
     @Override
     public DynamicPosition getLastPosition() {
-        return rules.length > 0 ? rules[rules.length - 1].getLastPosition() : null;
+        return stepCalculators.length > 0 ? stepCalculators[stepCalculators.length - 1].getLastPosition() : null;
     }
 
     @Override
     public Iterator<DynamicPosition> iterator() {
         List<Iterator<DynamicPosition>> iterators = new LinkedList<>();
-        for (Rule rule : rules) {
-            iterators.add(rule.iterator());
+        for (StepCalculator stepCalculator : stepCalculators) {
+            iterators.add(stepCalculator.iterator());
         }
 
         return Iterators.concat(iterators.toArray(new Iterator[iterators.size()]));

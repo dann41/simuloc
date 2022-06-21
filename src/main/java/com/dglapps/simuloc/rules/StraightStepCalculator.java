@@ -1,6 +1,6 @@
 package com.dglapps.simuloc.rules;
 
-import com.dglapps.simuloc.Utils;
+import com.dglapps.simuloc.DistanceCalculator;
 import com.dglapps.simuloc.entities.DynamicPosition;
 import com.dglapps.simuloc.entities.PositionFactory;
 
@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SingleRouteRule implements Rule {
+public class StraightStepCalculator implements StepCalculator {
 
     private final DynamicPosition source;
     private final DynamicPosition destination;
@@ -21,7 +21,7 @@ public class SingleRouteRule implements Rule {
      * @param duration    in milliseconds
      * @param throughput  in milliseconds/position
      */
-    public SingleRouteRule(DynamicPosition source, DynamicPosition destination, long duration, long throughput) {
+    public StraightStepCalculator(DynamicPosition source, DynamicPosition destination, long duration, long throughput) {
         this.source = source;
         this.destination = destination;
         this.duration = duration;
@@ -71,7 +71,7 @@ public class SingleRouteRule implements Rule {
                 this.deltaLat = (destination.getLatitude() - source.getLatitude()) / numPositions;
                 this.deltaLng = (destination.getLongitude() - source.getLongitude()) / numPositions;
                 this.deltaTime = (destination.getTime() - source.getTime()) / numPositions;
-                this.speed = 1000 * Utils.getDistance(source, destination) / (double) duration;
+                this.speed = 1000 * DistanceCalculator.getDistance(source, destination) / (double) duration;
             } else {
                 this.deltaLat = 0;
                 this.deltaLng = 0;

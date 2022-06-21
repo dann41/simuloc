@@ -1,21 +1,21 @@
 package com.dglapps.simuloc.listeners;
 
 import com.dglapps.simuloc.entities.DynamicPosition;
-import com.dglapps.simuloc.executors.RulesExecutor;
-import com.dglapps.simuloc.rules.Rule;
+import com.dglapps.simuloc.executors.TripReplay;
+import com.dglapps.simuloc.rules.StepCalculator;
 
 /**
  * Created by dani on 25/2/16.
  */
 public interface RulesExecutorListener {
 
-    void onExecutorStart(RulesExecutor executor);
+    void onExecutorStart(TripReplay executor);
 
-    void onRuleStart(RulesExecutor executor, Rule rule);
+    void onRuleStart(TripReplay executor, StepCalculator stepCalculator);
 
-    void onRuleEnd(RulesExecutor executor, Rule rule);
+    void onRuleEnd(TripReplay executor, StepCalculator stepCalculator);
 
-    void onPositionGenerated(RulesExecutor executor, DynamicPosition position);
+    void onPositionGenerated(TripReplay executor, DynamicPosition position);
 
-    void onExecutorEnd(RulesExecutor executor);
+    void onExecutorEnd(TripReplay executor);
 }

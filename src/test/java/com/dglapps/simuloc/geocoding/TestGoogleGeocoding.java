@@ -6,16 +6,16 @@ import com.dglapps.simuloc.entities.Position;
 import com.dglapps.simuloc.entities.PositionFactory;
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.model.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class TestGoogleGeocoding {
@@ -23,7 +23,7 @@ public class TestGoogleGeocoding {
     private GoogleGeocoding geocoding;
     private Geocoder geocoder;
 
-    @Before
+    @BeforeEach
     public void setUp() throws IOException {
         geocoder = Mockito.mock(Geocoder.class);
         mockGeocodeValid();
@@ -59,7 +59,7 @@ public class TestGoogleGeocoding {
     }
 
     @Test
-    public void testAddressToPosition() throws IOException {
+    public void testAddressToPosition() {
         Address address = new Address("Plaça Catalunya, Barcelona");
         AddressLocation addressLocation = geocoding.addressToPosition(address);
 

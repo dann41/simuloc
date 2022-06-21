@@ -5,7 +5,7 @@ import com.dglapps.simuloc.entities.Position;
 /**
  * Created by dani on 25/2/16.
  */
-public class Utils {
+public class DistanceCalculator {
 
     public static long getDistance(Position p1, Position p2) {
         return (long) (1000 * distance(p1.getLatitude(), p1.getLongitude(), p2.getLatitude(), p2.getLongitude()));
