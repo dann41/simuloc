@@ -1,71 +1,66 @@
 package com.dglapps.simuloc.domain.stepcalculator;
 
 import com.dglapps.simuloc.AssertUtils;
-import com.dglapps.simuloc.domain.stepcalculator.StraightStepCalculator;
-import com.dglapps.simuloc.domain.trip.Coordinates;
+import com.dglapps.simuloc.domain.trip.Period;
 import com.dglapps.simuloc.domain.trip.Position;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
 import java.util.List;
 
+import static com.dglapps.simuloc.utils.CoordinatesMother.MAD;
+import static com.dglapps.simuloc.utils.DurationMother.ONE_SECOND;
+import static com.dglapps.simuloc.utils.DurationMother.TEN_SECONDS;
+import static com.dglapps.simuloc.utils.PositionMother.BCN_POSITION;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class StraightStepCalculatorTest {
 
-    private StraightStepCalculator rule;
-
     @Test
     public void testThroughputGreaterThanDurationGenerates2Positions() {
-        /*long duration = 1000;
-        long throughput = 5000;
-        Position src = Position.aBuilder(new Coordinates(0.0, 0.0)).build();
-        Position dest = Position.aBuilder(new Coordinates(0.0, 0.0)).withTime(1000).build();
+        Period period = Period.ofSeconds(5);
+        Position src = BCN_POSITION;
+        StraightStepCalculator stepCalculator = new StraightStepCalculator(src, MAD, ONE_SECOND, period);
 
-        rule = new StraightStepCalculator(src, dest, duration, throughput);
+        List<Position> result = stepCalculator.generatePositions();
 
-        List<Position> result = rule.generatePositions();
         assertNotNull(result);
         assertEquals(2, result.size());
-        AssertUtils.assertTimeIncreasing(result);*/
+        AssertUtils.assertTimeIncreasing(result);
     }
 
     @Test
     public void testGenerates3Positions() {
-        /*long duration = 10000;
-        long throughput = 4000;
-        Position src = Position.aBuilder(new Coordinates(0.0, 0.0)).build();
-        Position dest = Position.aBuilder(new Coordinates(0.0, 0.0)).withTime(5000).build();
+        Period period = Period.ofSeconds(4);
+        Position src = BCN_POSITION;
 
-        rule = new StraightStepCalculator(src, dest, duration, throughput);
+        StraightStepCalculator stepCalculator = new StraightStepCalculator(src, MAD, TEN_SECONDS, period);
 
-        List<Position> result = rule.generatePositions();
+        List<Position> result = stepCalculator.generatePositions();
         assertNotNull(result);
         assertEquals(4, result.size());
-        AssertUtils.assertTimeIncreasing(result);*/
+        AssertUtils.assertTimeIncreasing(result);
     }
 
     @Test
     public void testFirstPosition() {
-        /*long duration = 1000;
-        long throughput = 5000;
-        Position src = Position.aBuilder(new Coordinates(0.0, 0.0)).build();
-        Position dest = Position.aBuilder(new Coordinates(0.0, 0.0)).withTime(1000).build();
+        Period period = Period.ofSeconds(5);
+        Position src = BCN_POSITION;
 
-        rule = new StraightStepCalculator(src, dest, duration, throughput);
+        StraightStepCalculator stepCalculator = new StraightStepCalculator(src, MAD, TEN_SECONDS, period);
 
-        AssertUtils.assertEqualsPosition(src, rule.getFirstPosition());*/
+        AssertUtils.assertEqualsPosition(src, stepCalculator.getFirstPosition());
     }
 
     @Test
     public void testLastPosition() {
-        /*long duration = 1000;
-        long throughput = 5000;
-        Position src = Position.aBuilder(new Coordinates(0.0, 0.0)).build();
-        Position dest = Position.aBuilder(new Coordinates(0.0, 0.0)).withTime(1000).build();
+        Period period = Period.ofSeconds(5);
+        Position src = BCN_POSITION;
 
-        rule = new StraightStepCalculator(src, dest, duration, throughput);
+        StraightStepCalculator stepCalculator = new StraightStepCalculator(src, MAD, ONE_SECOND, period);
 
-        AssertUtils.assertEqualsPosition(dest, rule.getLastPosition());*/
+        assertThat(stepCalculator.getLastPosition().coordinates()).isEqualTo(MAD);
     }
 }

@@ -1,7 +1,6 @@
 package com.dglapps.simuloc.domain.stepcalculator;
 
 import com.dglapps.simuloc.AssertUtils;
-import com.dglapps.simuloc.domain.trip.Coordinates;
 import com.dglapps.simuloc.domain.trip.Period;
 import com.dglapps.simuloc.domain.trip.Position;
 import com.dglapps.simuloc.domain.trip.TripBuilder;
@@ -11,7 +10,10 @@ import java.time.Duration;
 import java.util.List;
 
 import static com.dglapps.simuloc.utils.CoordinatesMother.BCN;
+import static com.dglapps.simuloc.utils.CoordinatesMother.MAD;
+import static com.dglapps.simuloc.utils.DurationMother.TEN_SECONDS;
 import static com.dglapps.simuloc.utils.OffsetDateTimeMother.FIRST_JULY_MIDNIGHT;
+import static com.dglapps.simuloc.utils.PeriodMother.EVERY_FIVE_SECOND;
 import static com.dglapps.simuloc.utils.PositionMother.BCN_POSITION;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,25 +44,22 @@ public class StepCalculatorBuilderTest {
 
     @Test
     public void testRulesBuilderAddSingleRoute() {
-        /*long initTime = 1000;
-        Position firstPosition = Position.aBuilder(new Coordinates(0.0, 0.0)).withTime(initTime).build();
-        Position lastPosition = Position.aBuilder(new Coordinates(0.0, 0.0)).build();
+        TripBuilder builder = new TripBuilder(BCN, FIRST_JULY_MIDNIGHT);
 
-        TripBuilder builder = new TripBuilder(new Coordinates(0.0, 0.0), initTime);
-
-        long throughput = 1000;
-        long duration = 100000;
-        builder.addStraightStep(new Coordinates(0.0, 0.0), duration, throughput);
+        builder.addStraightStep(MAD, TEN_SECONDS, EVERY_FIVE_SECOND);
 
         List<StepCalculator> stepCalculators = builder.build();
 
         assertEquals(1, stepCalculators.size());
         assertEquals(StraightStepCalculator.class, stepCalculators.get(0).getClass());
 
-        lastPosition = Position.aBuilder(lastPosition.coordinates()).withTime(initTime + duration).build();
+        Position firstPosition = BCN_POSITION;
+        Position lastPosition = Position.aBuilder(MAD)
+                .withTime(firstPosition.time().plus(TEN_SECONDS))
+                .build();
 
         AssertUtils.assertEqualsPosition(firstPosition, stepCalculators.get(0).getFirstPosition());
-        AssertUtils.assertEqualsPosition(lastPosition, stepCalculators.get(0).getLastPosition());*/
+        AssertUtils.assertEqualsPosition(lastPosition, stepCalculators.get(0).getLastPosition());
     }
 
 }

@@ -1,18 +1,18 @@
 package com.dglapps.simuloc.domain.stepcalculator;
 
+import com.dglapps.simuloc.AssertUtils;
+import com.dglapps.simuloc.domain.trip.Period;
 import com.dglapps.simuloc.domain.trip.Position;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
 import java.util.List;
 
+import static com.dglapps.simuloc.utils.PositionMother.BCN_POSITION;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-
-/**
- * Created by dani on 3/3/16.
- */
-public class CompositeStepTestCalculator {
+public class CompositeStepCalculatorTest {
 
     @Test
     public void testCompositeRuleWithNoRules() {
@@ -30,10 +30,10 @@ public class CompositeStepTestCalculator {
 
     @Test
     public void testCompositeRuleWithSingleRule() {
-        /*StepCalculator stepCalculator1 = new StandstillStepCalculator(
-                Position.aBuilder(new Coordinates(0, 0)).build(),
-                5000,
-                1000
+        StepCalculator stepCalculator1 = new StandstillStepCalculator(
+                BCN_POSITION,
+                Duration.ofSeconds(5),
+                Period.ofSeconds(1)
         );
 
         StepCalculator stepCalculator = new CompositeStepCalculator(stepCalculator1);
@@ -47,23 +47,19 @@ public class CompositeStepTestCalculator {
 
         assertNotNull(stepCalculator.getLastPosition());
         AssertUtils.assertEqualsPosition(stepCalculator1.getLastPosition(), stepCalculator.getLastPosition());
-
-        Iterator<Position> iterator = stepCalculator.iterator();
-        assertNotNull(iterator);
-        assertTrue(iterator.hasNext());*/
     }
 
     @Test
     public void testCompositeRuleWith2Rules() {
-        /*StepCalculator stepCalculator1 = new StandstillStepCalculator(
-                Position.aBuilder(new Coordinates(0, 0)).build(),
-                5000,
-                1000
+        StepCalculator stepCalculator1 = new StandstillStepCalculator(
+                BCN_POSITION,
+                Duration.ofSeconds(5),
+                Period.ofSeconds(1)
         );
         StepCalculator stepCalculator2 = new StandstillStepCalculator(
-                Position.aBuilder(new Coordinates(1.0, 1.0)).build(),
-                15000,
-                2000
+                BCN_POSITION,
+                Duration.ofSeconds(15),
+                Period.ofSeconds(2)
         );
 
         StepCalculator stepCalculator = new CompositeStepCalculator(stepCalculator1, stepCalculator2);
@@ -79,10 +75,6 @@ public class CompositeStepTestCalculator {
 
         assertNotNull(stepCalculator.getLastPosition());
         AssertUtils.assertEqualsPosition(stepCalculator2.getLastPosition(), stepCalculator.getLastPosition());
-
-        Iterator<Position> iterator = stepCalculator.iterator();
-        assertNotNull(iterator);
-        assertTrue(iterator.hasNext());*/
     }
 
 }
