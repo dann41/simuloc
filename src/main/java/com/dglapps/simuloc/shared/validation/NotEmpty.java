@@ -10,4 +10,10 @@ public class NotEmpty {
         }
     }
 
+    public static void validate(String property, String propertyName) {
+        if (property == null || property.isEmpty() || property.isBlank()) {
+            throw new IllegalArgumentException(propertyName + " cannot be empty");
+        }
+    }
+
 }

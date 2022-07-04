@@ -2,8 +2,10 @@ package com.dglapps.simuloc.domain.stepcalculator;
 
 import com.dglapps.simuloc.domain.trip.Period;
 import com.dglapps.simuloc.domain.trip.Position;
+import com.dglapps.simuloc.domain.trip.Step;
 
 import java.time.Duration;
+import java.time.OffsetDateTime;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +23,14 @@ public class StandstillStepCalculator implements StepCalculator {
         this.position = position;
         this.duration = duration;
         this.period = period;
+    }
+
+    public StandstillStepCalculator(Step step, OffsetDateTime initialDateTime) {
+        this(
+                Position.aBuilder(step.firstPosition()).withTime(initialDateTime).build(),
+                step.duration(),
+                step.period()
+        );
     }
 
     @Override

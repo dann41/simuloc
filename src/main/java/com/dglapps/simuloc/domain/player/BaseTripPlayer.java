@@ -1,15 +1,29 @@
 package com.dglapps.simuloc.domain.player;
 
-import com.dglapps.simuloc.domain.trip.Position;
 import com.dglapps.simuloc.domain.player.listener.TripPlayerListener;
 import com.dglapps.simuloc.domain.stepcalculator.StepCalculator;
+import com.dglapps.simuloc.domain.stepcalculator.StepCalculatorFactory;
+import com.dglapps.simuloc.domain.trip.Position;
+import com.dglapps.simuloc.domain.trip.Step;
+import com.dglapps.simuloc.domain.trip.Trip;
 
+import java.time.OffsetDateTime;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-public abstract class BaseTripPlayer implements TripPlayer {
+public class BaseTripPlayer implements TripPlayer, TripPlayerObservable {
 
+    private final StepCalculatorFactory stepCalculatorFactory;
+    private final PositionPlayer positionPlayer;
     private final List<TripPlayerListener> listeners = new LinkedList<>();
+
+    public BaseTripPlayer(StepCalculatorFactory stepCalculatorFactory, PositionPlayer positionPlayer) {
+        this.stepCalculatorFactory = stepCalculatorFactory;
+        this.positionPlayer = positionPlayer;
+    }
+
 
     @Override
     public final synchronized void addListener(final TripPlayerListener listener) {
@@ -24,31 +38,39 @@ public abstract class BaseTripPlayer implements TripPlayer {
     }
 
     @Override
-    public final void execute(List<StepCalculator> stepCalculators) {
+    public void play(Trip trip, OffsetDateTime startingDateTime) {
         notifyStart();
 
-        if (stepCalculators == null) {
+        Collection<Step> steps = trip.steps();
+
+        if (steps == null) {
             notifyEnd();
             return;
         }
 
-        for (StepCalculator stepCalculator : stepCalculators) {
-            executeStep(stepCalculator);
+        OffsetDateTime nextStartingDateTime = startingDateTime;
+        for (Step step : steps) {
+            executeStep(step, nextStartingDateTime);
+            nextStartingDateTime = nextStartingDateTime.plus(step.duration());
         }
 
         notifyEnd();
     }
 
-    private void executeStep(StepCalculator stepCalculator) {
+    private void executeStep(Step step, OffsetDateTime startingDateTime) {
+        StepCalculator stepCalculator = stepCalculatorFactory.stepCalculatorForStep(step, startingDateTime);
+
         stepStarted(stepCalculator);
         for (Position position : stepCalculator.generatePositions()) {
-            execute(position);
-            positionEmitted(position);
+            try {
+                positionPlayer.play(position).get();
+                positionEmitted(position);
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
         }
         stepCompleted(stepCalculator);
     }
-
-    protected abstract void execute(Position position);
 
     private synchronized void stepStarted(StepCalculator stepCalculator) {
         for (TripPlayerListener listener : listeners) {

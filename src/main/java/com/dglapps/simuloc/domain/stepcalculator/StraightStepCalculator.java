@@ -3,8 +3,10 @@ package com.dglapps.simuloc.domain.stepcalculator;
 import com.dglapps.simuloc.domain.trip.Coordinates;
 import com.dglapps.simuloc.domain.trip.Period;
 import com.dglapps.simuloc.domain.trip.Position;
+import com.dglapps.simuloc.domain.trip.Step;
 
 import java.time.Duration;
+import java.time.OffsetDateTime;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +17,15 @@ public class StraightStepCalculator implements StepCalculator {
     private final Position destination;
     private final Duration duration;
     private final Period period;
+
+    public StraightStepCalculator(Step step, OffsetDateTime initialDateTime) {
+        this(
+                Position.aBuilder(step.firstPosition()).withTime(initialDateTime).build(),
+                step.lastPosition(),
+                step.duration(),
+                step.period()
+        );
+    }
 
     public StraightStepCalculator(Position source, Coordinates destination, Duration duration, Period period) {
         this.source = source;

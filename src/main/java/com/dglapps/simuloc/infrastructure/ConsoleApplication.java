@@ -1,10 +1,12 @@
 package com.dglapps.simuloc.infrastructure;
 
-import com.dglapps.simuloc.domain.player.RealTimeTripPlayer;
+import com.dglapps.simuloc.domain.player.BaseTripPlayer;
+import com.dglapps.simuloc.domain.player.RealTimePositionPlayer;
 import com.dglapps.simuloc.domain.player.listener.TripPlayerListener;
+import com.dglapps.simuloc.domain.stepcalculator.StepCalculatorFactory;
 import com.dglapps.simuloc.domain.trip.Coordinates;
 import com.dglapps.simuloc.domain.trip.Period;
-import com.dglapps.simuloc.domain.trip.TripBuilder;
+import com.dglapps.simuloc.domain.trip.Trip;
 import com.dglapps.simuloc.infrastructure.player.listener.ConsoleTripPlayerListener;
 
 import java.time.Clock;
@@ -20,13 +22,14 @@ public class ConsoleApplication {
         Coordinates startingCoordinates = new Coordinates(2.554646, 38.45684);
         Coordinates endCoordinates = new Coordinates(3.555646, 35.45384);
 
-        TripBuilder builder = new TripBuilder(startingCoordinates, OffsetDateTime.now(clock))
-                .addStandstillStep(Duration.ofSeconds(20), Period.ofSeconds(1))
-                .addStraightStep(endCoordinates, Duration.ofSeconds(30), Period.ofSeconds(4));
+        Trip trip = Trip.Builder.aTrip(startingCoordinates)
+                .withStandstillStep(Duration.ofSeconds(20), Period.ofSeconds(1))
+                .withStraightStep(endCoordinates, Duration.ofSeconds(30), Period.ofSeconds(4))
+                .build();
 
-        RealTimeTripPlayer executor = new RealTimeTripPlayer(clock);
-        executor.addListener(listener);
-        executor.execute(builder.build());
+        BaseTripPlayer player = new BaseTripPlayer(new StepCalculatorFactory(), new RealTimePositionPlayer(clock));
+        player.addListener(listener);
+        player.play(trip, OffsetDateTime.now(clock));
     }
 
 }
