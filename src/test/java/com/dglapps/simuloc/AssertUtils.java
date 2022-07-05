@@ -13,20 +13,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class AssertUtils {
 
-    public static void assertEqualsPosition(Position expected, Position result) {
-        assertEquals(expected.latitude(), result.latitude(), 0.000002);
-        assertEquals(expected.longitude(), result.longitude(), 0.000002);
-        assertEquals(expected.time(), result.time());
-    }
+  public static void assertEqualsPosition(Position expected, Position result) {
+    assertEquals(expected.latitude(), result.latitude(), 0.000002);
+    assertEquals(expected.longitude(), result.longitude(), 0.000002);
+    assertEquals(expected.time(), result.time());
+  }
 
-    public static void assertTimeIncreasing(List<Position> positions) {
-        Position previous = null;
-        for (Position p : positions) {
-            if (previous == null) {
-                previous = p;
-            } else {
-                assertTrue(previous.time().isBefore(p.time()));
-            }
-        }
+  public static void assertTimeIncreasing(List<Position> positions) {
+    Position previous = null;
+    for (Position p : positions) {
+      if (previous == null) {
+        previous = p;
+      } else {
+        assertTrue(previous.time().isBefore(p.time()));
+      }
     }
+  }
 }

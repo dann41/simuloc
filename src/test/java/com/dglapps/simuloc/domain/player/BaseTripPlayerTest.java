@@ -14,59 +14,62 @@ import java.time.Clock;
 import java.time.OffsetDateTime;
 import java.util.concurrent.CompletableFuture;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class BaseTripPlayerTest {
 
-    private Clock clock;
-    private BaseTripPlayer tripPlayer;
+  private Clock clock;
+  private BaseTripPlayer tripPlayer;
 
-    @BeforeEach
-    public void setup() {
-        this.clock = Clock.systemUTC();
-        this.tripPlayer = new BaseTripPlayer(
-                new StepCalculatorFactory(),
-                position -> CompletableFuture.completedFuture(null)
-        );
-    }
+  @BeforeEach
+  public void setup() {
+    this.clock = Clock.systemUTC();
+    this.tripPlayer = new BaseTripPlayer(
+        new StepCalculatorFactory(),
+        position -> CompletableFuture.completedFuture(null)
+    );
+  }
 
-    @Test
-    public void givenTripWithoutSteps_whenPlayTrip_thenDoNotEmitPosition() {
+  @Test
+  public void givenTripWithoutStepsWhenPlayTripThenDoNotEmitPosition() {
 
-        TripPlayerListener listener = Mockito.mock(TripPlayerListener.class);
-        this.tripPlayer.addListener(listener);
+    TripPlayerListener listener = Mockito.mock(TripPlayerListener.class);
+    this.tripPlayer.addListener(listener);
 
-        Trip trip = TripObjectMother.aTripWithoutSteps();
+    Trip trip = TripObjectMother.aTripWithoutSteps();
 
-        this.tripPlayer.play(trip, OffsetDateTime.now());
+    this.tripPlayer.play(trip, OffsetDateTime.now());
 
-        verify(listener, times(1)).onExecutorStart(eq(tripPlayer));
-        verify(listener, times(0)).onRuleStart(eq(tripPlayer), any(StandstillStepCalculator.class));
-        verify(listener, times(0)).onRuleEnd(eq(tripPlayer), any(StandstillStepCalculator.class));
-        verify(listener, times(1)).onExecutorEnd(eq(tripPlayer));
-        verify(listener, times(0)).onPositionGenerated(eq(tripPlayer), any(Position.class));
+    verify(listener, times(1)).onExecutorStart(eq(tripPlayer));
+    verify(listener, times(0)).onRuleStart(eq(tripPlayer), any(StandstillStepCalculator.class));
+    verify(listener, times(0)).onRuleEnd(eq(tripPlayer), any(StandstillStepCalculator.class));
+    verify(listener, times(1)).onExecutorEnd(eq(tripPlayer));
+    verify(listener, times(0)).onPositionGenerated(eq(tripPlayer), any(Position.class));
 
-    }
+  }
 
-    @Test
-    public void givenTripWithTwoSteps_whenPlayTrip_thenDoCallCallbacks() {
-        TripPlayerListener listener = Mockito.mock(TripPlayerListener.class);
-        this.tripPlayer.addListener(listener);
-        Trip trip = TripObjectMother.aTripWithTwoSteps();
+  @Test
+  public void givenTripWithTwoStepsWhenPlayTripThenDoCallCallbacks() {
+    TripPlayerListener listener = Mockito.mock(TripPlayerListener.class);
+    this.tripPlayer.addListener(listener);
+    Trip trip = TripObjectMother.aTripWithTwoSteps();
 
-        this.tripPlayer.play(trip, OffsetDateTime.now());
+    this.tripPlayer.play(trip, OffsetDateTime.now());
 
-        verify(listener, times(1)).onExecutorStart(eq(tripPlayer));
-        verify(listener, times(1)).onRuleStart(eq(tripPlayer), any(StandstillStepCalculator.class));
-        verify(listener, times(1)).onRuleStart(eq(tripPlayer), any(StraightStepCalculator.class));
+    verify(listener, times(1)).onExecutorStart(eq(tripPlayer));
+    verify(listener, times(1)).onRuleStart(eq(tripPlayer), any(StandstillStepCalculator.class));
+    verify(listener, times(1)).onRuleStart(eq(tripPlayer), any(StraightStepCalculator.class));
 
-        verify(listener, times(1)).onRuleEnd(eq(tripPlayer), any(StandstillStepCalculator.class));
-        verify(listener, times(1)).onRuleEnd(eq(tripPlayer), any(StraightStepCalculator.class));
+    verify(listener, times(1)).onRuleEnd(eq(tripPlayer), any(StandstillStepCalculator.class));
+    verify(listener, times(1)).onRuleEnd(eq(tripPlayer), any(StraightStepCalculator.class));
 
-        verify(listener, times(1)).onExecutorEnd(eq(tripPlayer));
+    verify(listener, times(1)).onExecutorEnd(eq(tripPlayer));
 
-        verify(listener, times(4)).onPositionGenerated(eq(tripPlayer), any(Position.class));
+    verify(listener, times(24)).onPositionGenerated(eq(tripPlayer), any(Position.class));
 
-    }
+  }
 
 }

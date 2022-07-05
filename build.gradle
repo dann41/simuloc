@@ -3,6 +3,7 @@ plugins {
     id 'idea'
     id 'jacoco'
     id 'application'
+    id 'checkstyle'
 }
 
 repositories {

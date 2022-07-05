@@ -17,28 +17,29 @@ import static com.dglapps.simuloc.utils.PositionMother.BCN_POSITION;
  */
 public class StepCalculatorBuilderTest {
 
-    @Test
-    public void shouldAddStandstillStepCalculator() {
-        Duration duration = Duration.ofSeconds(5);
-        Period period = Period.ofSeconds(1);
+  @Test
+  public void shouldAddStandstillStepCalculator() {
+    Duration duration = Duration.ofSeconds(5);
+    Period period = Period.ofSeconds(1);
 
-        StandstillStepCalculator stepCalculator = new StandstillStepCalculator(BCN_POSITION, duration, period);
+    StandstillStepCalculator stepCalculator = new StandstillStepCalculator(BCN_POSITION, duration, period);
 
-        Position lastPosition = BCN_POSITION.afterTime(duration);
-        AssertUtils.assertEqualsPosition(lastPosition, stepCalculator.getLastPosition());
-    }
+    Position lastPosition = BCN_POSITION.afterTime(duration);
+    AssertUtils.assertEqualsPosition(lastPosition, stepCalculator.getLastPosition());
+  }
 
-    @Test
-    public void testRulesBuilderAddSingleRoute() {
-        StraightStepCalculator stepCalculator = new StraightStepCalculator(BCN_POSITION, MAD, TEN_SECONDS, EVERY_FIVE_SECOND);
+  @Test
+  public void testRulesBuilderAddSingleRoute() {
+    StraightStepCalculator stepCalculator =
+        new StraightStepCalculator(BCN_POSITION, MAD, TEN_SECONDS, EVERY_FIVE_SECOND);
 
-        Position firstPosition = BCN_POSITION;
-        Position lastPosition = Position.aBuilder(MAD)
-                .withTime(firstPosition.time().plus(TEN_SECONDS))
-                .build();
+    Position firstPosition = BCN_POSITION;
+    Position lastPosition = Position.aBuilder(MAD)
+        .withTime(firstPosition.time().plus(TEN_SECONDS))
+        .build();
 
-        AssertUtils.assertEqualsPosition(firstPosition, stepCalculator.getFirstPosition());
-        AssertUtils.assertEqualsPosition(lastPosition, stepCalculator.getLastPosition());
-    }
+    AssertUtils.assertEqualsPosition(firstPosition, stepCalculator.getFirstPosition());
+    AssertUtils.assertEqualsPosition(lastPosition, stepCalculator.getLastPosition());
+  }
 
 }

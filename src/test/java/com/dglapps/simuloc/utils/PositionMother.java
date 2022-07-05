@@ -8,11 +8,11 @@ import static com.dglapps.simuloc.utils.OffsetDateTimeMother.FIRST_JULY_MIDNIGHT
 
 public class PositionMother {
 
-    public static Position BCN_POSITION = Position.aBuilder(BCN)
-            .withTime(FIRST_JULY_MIDNIGHT)
-            .build();
+  public static Position BCN_POSITION = Position.aBuilder(BCN)
+      .withTime(FIRST_JULY_MIDNIGHT)
+      .build();
 
-    public static Position MADRID_POSITION = Position.aBuilder(MAD)
-            .withTime(FIRST_JULY_MIDNIGHT)
-            .build();
+  public static Position MADRID_POSITION = Position.aBuilder(MAD)
+      .withTime(FIRST_JULY_MIDNIGHT)
+      .build();
 }

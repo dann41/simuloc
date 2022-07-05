@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface StepCalculator {
 
-    List<Position> generatePositions();
+  List<Position> generatePositions();
 
-    Position getFirstPosition();
+  Position getFirstPosition();
 
-    Position getLastPosition();
+  Position getLastPosition();
 }

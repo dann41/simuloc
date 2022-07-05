@@ -1,18 +1,18 @@
 package com.dglapps.simuloc.domain.player.listener;
 
 import com.dglapps.simuloc.domain.player.TripPlayer;
-import com.dglapps.simuloc.domain.trip.Position;
 import com.dglapps.simuloc.domain.stepcalculator.StepCalculator;
+import com.dglapps.simuloc.domain.trip.Position;
 
 public interface TripPlayerListener {
 
-    void onExecutorStart(TripPlayer executor);
+  void onExecutorStart(TripPlayer executor);
 
-    void onRuleStart(TripPlayer executor, StepCalculator stepCalculator);
+  void onRuleStart(TripPlayer executor, StepCalculator stepCalculator);
 
-    void onRuleEnd(TripPlayer executor, StepCalculator stepCalculator);
+  void onRuleEnd(TripPlayer executor, StepCalculator stepCalculator);
 
-    void onPositionGenerated(TripPlayer executor, Position position);
+  void onPositionGenerated(TripPlayer executor, Position position);
 
-    void onExecutorEnd(TripPlayer executor);
+  void onExecutorEnd(TripPlayer executor);
 }

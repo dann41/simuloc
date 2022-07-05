@@ -5,7 +5,6 @@ import com.dglapps.simuloc.domain.trip.Period;
 import com.dglapps.simuloc.domain.trip.Position;
 import org.junit.jupiter.api.Test;
 
-import java.time.Duration;
 import java.util.List;
 
 import static com.dglapps.simuloc.utils.CoordinatesMother.MAD;
@@ -18,49 +17,49 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class StraightStepCalculatorTest {
 
-    @Test
-    public void testThroughputGreaterThanDurationGenerates2Positions() {
-        Period period = Period.ofSeconds(5);
-        Position src = BCN_POSITION;
-        StraightStepCalculator stepCalculator = new StraightStepCalculator(src, MAD, ONE_SECOND, period);
+  @Test
+  public void testThroughputGreaterThanDurationGenerates2Positions() {
+    Period period = Period.ofSeconds(5);
+    Position src = BCN_POSITION;
+    StraightStepCalculator stepCalculator = new StraightStepCalculator(src, MAD, ONE_SECOND, period);
 
-        List<Position> result = stepCalculator.generatePositions();
+    List<Position> result = stepCalculator.generatePositions();
 
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        AssertUtils.assertTimeIncreasing(result);
-    }
+    assertNotNull(result);
+    assertEquals(2, result.size());
+    AssertUtils.assertTimeIncreasing(result);
+  }
 
-    @Test
-    public void testGenerates3Positions() {
-        Period period = Period.ofSeconds(4);
-        Position src = BCN_POSITION;
+  @Test
+  public void testGenerates3Positions() {
+    Period period = Period.ofSeconds(4);
+    Position src = BCN_POSITION;
 
-        StraightStepCalculator stepCalculator = new StraightStepCalculator(src, MAD, TEN_SECONDS, period);
+    StraightStepCalculator stepCalculator = new StraightStepCalculator(src, MAD, TEN_SECONDS, period);
 
-        List<Position> result = stepCalculator.generatePositions();
-        assertNotNull(result);
-        assertEquals(4, result.size());
-        AssertUtils.assertTimeIncreasing(result);
-    }
+    List<Position> result = stepCalculator.generatePositions();
+    assertNotNull(result);
+    assertEquals(4, result.size());
+    AssertUtils.assertTimeIncreasing(result);
+  }
 
-    @Test
-    public void testFirstPosition() {
-        Period period = Period.ofSeconds(5);
-        Position src = BCN_POSITION;
+  @Test
+  public void testFirstPosition() {
+    Period period = Period.ofSeconds(5);
+    Position src = BCN_POSITION;
 
-        StraightStepCalculator stepCalculator = new StraightStepCalculator(src, MAD, TEN_SECONDS, period);
+    StraightStepCalculator stepCalculator = new StraightStepCalculator(src, MAD, TEN_SECONDS, period);
 
-        AssertUtils.assertEqualsPosition(src, stepCalculator.getFirstPosition());
-    }
+    AssertUtils.assertEqualsPosition(src, stepCalculator.getFirstPosition());
+  }
 
-    @Test
-    public void testLastPosition() {
-        Period period = Period.ofSeconds(5);
-        Position src = BCN_POSITION;
+  @Test
+  public void testLastPosition() {
+    Period period = Period.ofSeconds(5);
+    Position src = BCN_POSITION;
 
-        StraightStepCalculator stepCalculator = new StraightStepCalculator(src, MAD, ONE_SECOND, period);
+    StraightStepCalculator stepCalculator = new StraightStepCalculator(src, MAD, ONE_SECOND, period);
 
-        assertThat(stepCalculator.getLastPosition().coordinates()).isEqualTo(MAD);
-    }
+    assertThat(stepCalculator.getLastPosition().coordinates()).isEqualTo(MAD);
+  }
 }

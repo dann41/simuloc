@@ -1,6 +1,5 @@
 package com.dglapps.simuloc.domain.player;
 
-import com.dglapps.simuloc.domain.player.listener.TripPlayerListener;
 import com.dglapps.simuloc.domain.trip.Trip;
 
 import java.time.OffsetDateTime;
@@ -10,6 +9,6 @@ import java.time.OffsetDateTime;
  */
 public interface TripPlayer {
 
-    void play(Trip trip, OffsetDateTime startingDateTime);
+  void play(Trip trip, OffsetDateTime startingDateTime);
 
 }

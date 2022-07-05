@@ -15,21 +15,21 @@ import java.time.OffsetDateTime;
 
 public class ConsoleApplication {
 
-    public static void main(String[] args) {
-        Clock clock = Clock.systemUTC();
-        TripPlayerListener listener = new ConsoleTripPlayerListener(clock);
+  public static void main(String[] args) {
+    Clock clock = Clock.systemUTC();
+    TripPlayerListener listener = new ConsoleTripPlayerListener(clock);
 
-        Coordinates startingCoordinates = new Coordinates(2.554646, 38.45684);
-        Coordinates endCoordinates = new Coordinates(3.555646, 35.45384);
+    Coordinates startingCoordinates = new Coordinates(2.554646, 38.45684);
+    Coordinates endCoordinates = new Coordinates(3.555646, 35.45384);
 
-        Trip trip = Trip.Builder.aTrip(startingCoordinates)
-                .withStandstillStep(Duration.ofSeconds(20), Period.ofSeconds(1))
-                .withStraightStep(endCoordinates, Duration.ofSeconds(30), Period.ofSeconds(4))
-                .build();
+    Trip trip = Trip.Builder.aTrip(startingCoordinates)
+        .withStandstillStep(Duration.ofSeconds(20), Period.ofSeconds(1))
+        .withStraightStep(endCoordinates, Duration.ofSeconds(30), Period.ofSeconds(4))
+        .build();
 
-        BaseTripPlayer player = new BaseTripPlayer(new StepCalculatorFactory(), new RealTimePositionPlayer(clock));
-        player.addListener(listener);
-        player.play(trip, OffsetDateTime.now(clock));
-    }
+    BaseTripPlayer player = new BaseTripPlayer(new StepCalculatorFactory(), new RealTimePositionPlayer(clock));
+    player.addListener(listener);
+    player.play(trip, OffsetDateTime.now(clock));
+  }
 
 }
