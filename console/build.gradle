@@ -43,4 +43,4 @@ dependencies {
     testImplementation 'org.awaitility:awaitility:4.2.0'
 }
 
-mainClassName = "com.dglapps.simuloc.infrastructure.ConsoleApplication"
+mainClassName = "com.dglapps.simuloc.consoleapp.ConsoleApplication"

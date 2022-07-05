@@ -1,4 +1,4 @@
-package com.dglapps.simuloc.infrastructure;
+package com.dglapps.simuloc.consoleapp;
 
 import com.dglapps.simuloc.domain.player.TripPlayer;
 import com.dglapps.simuloc.domain.player.RealTimePositionPlayer;
@@ -7,7 +7,7 @@ import com.dglapps.simuloc.domain.stepcalculator.StepCalculatorFactory;
 import com.dglapps.simuloc.domain.trip.Coordinates;
 import com.dglapps.simuloc.domain.trip.Period;
 import com.dglapps.simuloc.domain.trip.Trip;
-import com.dglapps.simuloc.infrastructure.player.listener.ConsoleTripPlayerListener;
+import com.dglapps.simuloc.consoleapp.infrastructure.player.listener.ConsoleTripPlayerListener;
 
 import java.time.Clock;
 import java.time.Duration;

@@ -1,4 +1,4 @@
-package com.dglapps.simuloc.infrastructure.player.listener;
+package com.dglapps.simuloc.consoleapp.infrastructure.player.listener;
 
 import com.dglapps.simuloc.domain.player.TripPlayer;
 import com.dglapps.simuloc.domain.player.listener.TripPlayerListener;
