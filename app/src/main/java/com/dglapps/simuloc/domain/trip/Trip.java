@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class Trip {
-
   private final Coordinates origin;
   private final List<Step> steps;
 

@@ -43,10 +43,10 @@ public class TripPlayerTest {
 
     this.tripPlayer.play(trip, OffsetDateTime.now());
 
-    verify(listener, times(1)).onExecutorStart(eq(tripPlayer));
+    verify(listener, times(1)).onTripPlayerStart(eq(tripPlayer));
     verify(listener, times(0)).onRuleStart(eq(tripPlayer), any(StandstillStepCalculator.class));
     verify(listener, times(0)).onRuleEnd(eq(tripPlayer), any(StandstillStepCalculator.class));
-    verify(listener, times(1)).onExecutorEnd(eq(tripPlayer));
+    verify(listener, times(1)).onTripPlayerEnd(eq(tripPlayer));
     verify(listener, times(0)).onPositionGenerated(eq(tripPlayer), any(Position.class));
 
   }
@@ -59,14 +59,14 @@ public class TripPlayerTest {
 
     this.tripPlayer.play(trip, OffsetDateTime.now());
 
-    verify(listener, times(1)).onExecutorStart(eq(tripPlayer));
+    verify(listener, times(1)).onTripPlayerStart(eq(tripPlayer));
     verify(listener, times(1)).onRuleStart(eq(tripPlayer), any(StandstillStepCalculator.class));
     verify(listener, times(1)).onRuleStart(eq(tripPlayer), any(StraightStepCalculator.class));
 
     verify(listener, times(1)).onRuleEnd(eq(tripPlayer), any(StandstillStepCalculator.class));
     verify(listener, times(1)).onRuleEnd(eq(tripPlayer), any(StraightStepCalculator.class));
 
-    verify(listener, times(1)).onExecutorEnd(eq(tripPlayer));
+    verify(listener, times(1)).onTripPlayerEnd(eq(tripPlayer));
 
     verify(listener, times(24)).onPositionGenerated(eq(tripPlayer), any(Position.class));
 

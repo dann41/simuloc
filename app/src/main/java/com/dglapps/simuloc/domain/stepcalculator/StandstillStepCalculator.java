@@ -46,7 +46,7 @@ public class StandstillStepCalculator implements StepCalculator {
   @Override
   public List<Position> generatePositions() {
     List<Position> positions = new LinkedList<>();
-    for (Iterator<Position> it = iterator(); it.hasNext(); ) {
+    for (Iterator<Position> it = iterator(); it.hasNext();) {
       Position pos = it.next();
       positions.add(pos);
     }
@@ -63,8 +63,9 @@ public class StandstillStepCalculator implements StepCalculator {
       return false;
     }
     StandstillStepCalculator that = (StandstillStepCalculator) o;
-    return Objects.equals(position, that.position) && Objects.equals(duration, that.duration) &&
-        Objects.equals(period, that.period);
+    return Objects.equals(position, that.position)
+        && Objects.equals(duration, that.duration)
+        && Objects.equals(period, that.period);
   }
 
   @Override
