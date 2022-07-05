@@ -1,6 +1,6 @@
 package com.dglapps.simuloc.infrastructure;
 
-import com.dglapps.simuloc.domain.player.BaseTripPlayer;
+import com.dglapps.simuloc.domain.player.TripPlayer;
 import com.dglapps.simuloc.domain.player.RealTimePositionPlayer;
 import com.dglapps.simuloc.domain.player.listener.TripPlayerListener;
 import com.dglapps.simuloc.domain.stepcalculator.StepCalculatorFactory;
@@ -27,7 +27,7 @@ public class ConsoleApplication {
         .withStraightStep(endCoordinates, Duration.ofSeconds(30), Period.ofSeconds(4))
         .build();
 
-    BaseTripPlayer player = new BaseTripPlayer(new StepCalculatorFactory(), new RealTimePositionPlayer(clock));
+    TripPlayer player = new TripPlayer(new StepCalculatorFactory(), new RealTimePositionPlayer(clock));
     player.addListener(listener);
     player.play(trip, OffsetDateTime.now(clock));
   }

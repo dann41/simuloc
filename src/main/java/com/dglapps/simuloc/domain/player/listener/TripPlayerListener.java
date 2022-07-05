@@ -6,13 +6,13 @@ import com.dglapps.simuloc.domain.trip.Position;
 
 public interface TripPlayerListener {
 
-  void onExecutorStart(TripPlayer executor);
+  void onTripPlayerStart(TripPlayer tripPlayer);
 
-  void onRuleStart(TripPlayer executor, StepCalculator stepCalculator);
+  void onRuleStart(TripPlayer tripPlayer, StepCalculator stepCalculator);
 
-  void onRuleEnd(TripPlayer executor, StepCalculator stepCalculator);
+  void onRuleEnd(TripPlayer tripPlayer, StepCalculator stepCalculator);
 
-  void onPositionGenerated(TripPlayer executor, Position position);
+  void onPositionGenerated(TripPlayer tripPlayer, Position position);
 
-  void onExecutorEnd(TripPlayer executor);
+  void onTripPlayerEnd(TripPlayer tripPlayer);
 }

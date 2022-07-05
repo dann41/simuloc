@@ -19,18 +19,18 @@ public class ConsoleTripPlayerListener implements TripPlayerListener {
   }
 
   @Override
-  public void onExecutorStart(TripPlayer executor) {
+  public void onTripPlayerStart(TripPlayer tripPlayer) {
     System.out.println("Executor started");
     start = System.currentTimeMillis();
   }
 
   @Override
-  public void onRuleStart(TripPlayer executor, StepCalculator stepCalculator) {
+  public void onRuleStart(TripPlayer tripPlayer, StepCalculator stepCalculator) {
     System.out.println("Rule started");
   }
 
   @Override
-  public void onPositionGenerated(TripPlayer executor, Position position) {
+  public void onPositionGenerated(TripPlayer tripPlayer, Position position) {
     System.out.println(position.latitude() + "," + position.longitude() + "," + position.time() + " " + position
         .speed() + " " + ChronoUnit.SECONDS.between(position.time(), OffsetDateTime.now()));
   }
@@ -41,7 +41,7 @@ public class ConsoleTripPlayerListener implements TripPlayerListener {
   }
 
   @Override
-  public void onExecutorEnd(TripPlayer executor) {
+  public void onTripPlayerEnd(TripPlayer tripPlayer) {
     long end = clock.millis();
     System.out.println("Executor finished. Execution took " + (end - start) + " ms.");
 

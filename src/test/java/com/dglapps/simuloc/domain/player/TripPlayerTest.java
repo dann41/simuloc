@@ -19,15 +19,15 @@ import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-public class BaseTripPlayerTest {
+public class TripPlayerTest {
 
   private Clock clock;
-  private BaseTripPlayer tripPlayer;
+  private TripPlayer tripPlayer;
 
   @BeforeEach
   public void setup() {
     this.clock = Clock.systemUTC();
-    this.tripPlayer = new BaseTripPlayer(
+    this.tripPlayer = new TripPlayer(
         new StepCalculatorFactory(),
         position -> CompletableFuture.completedFuture(null)
     );
