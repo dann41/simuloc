@@ -3,6 +3,7 @@ package com.dglapps.simuloc.domain.trip;
 import com.dglapps.simuloc.shared.validation.NotNull;
 
 import java.time.Duration;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -10,16 +11,29 @@ import java.util.List;
 import java.util.Optional;
 
 public class Trip {
+  private final TripId id;
+  private Name name;
+
+  private final CreationDate creationDate;
   private final Coordinates origin;
   private final List<Step> steps;
 
-  public Trip(Coordinates origin, List<Step> steps) {
+  public Trip(TripId id, Name name, CreationDate creationDate, Coordinates origin, List<Step> steps) {
+    NotNull.validate(id, "id");
+    NotNull.validate(name, "name");
+    NotNull.validate(creationDate, "creationDate");
     NotNull.validate(origin, "origin cannot be null");
     NotNull.validate(steps, "steps");
 
+    this.id = id;
+    this.name = name;
+    this.creationDate = creationDate;
     this.origin = origin;
-    this.steps = new ArrayList<>();
-    this.steps.addAll(steps);
+    this.steps = new ArrayList<>(steps);
+  }
+
+  public Trip(Coordinates origin, List<Step> steps) {
+    this(TripId.random(), new Name("Unnamed"), CreationDate.now(), origin, steps);
   }
 
   public void addStep(AddStepCommand addStepCommand) {
@@ -57,6 +71,18 @@ public class Trip {
     steps.add(toPosition, step);
   }
 
+  public TripId id() {
+    return id;
+  }
+
+  public Name name() {
+    return name;
+  }
+
+  public CreationDate creationDate() {
+    return creationDate;
+  }
+
   public Coordinates firstPosition() {
     return origin;
   }
@@ -64,7 +90,7 @@ public class Trip {
   public Coordinates lastPosition() {
     return lastStep()
         .map(Step::lastPosition)
-        .orElse(null);
+        .orElse(firstPosition());
   }
 
   private Optional<Step> lastStep() {
@@ -85,7 +111,17 @@ public class Trip {
     return Collections.unmodifiableList(steps);
   }
 
+  public void rename(Name newName) {
+    this.name = newName;
+  }
+
   public static class Builder {
+
+    private TripId tripId = TripId.random();
+
+    private Name name = new Name("Unnamed");
+
+    private CreationDate creationDate = CreationDate.now();
 
     private final Coordinates firstPosition;
     private Coordinates nextStepStartPosition;
@@ -99,6 +135,21 @@ public class Trip {
 
     public static Builder aTrip(Coordinates firstPosition) {
       return new Builder(firstPosition);
+    }
+
+    public Builder withId(String uuid) {
+      tripId = new TripId(uuid);
+      return this;
+    }
+
+    public Builder withName(String value) {
+      name = new Name(value);
+      return this;
+    }
+
+    public Builder withCreationDate(OffsetDateTime offsetDateTime) {
+      creationDate = new CreationDate(offsetDateTime);
+      return this;
     }
 
     public Builder withStandstillStep(Duration duration, Period period) {
@@ -127,7 +178,7 @@ public class Trip {
     }
 
     public Trip build() {
-      return new Trip(firstPosition, steps);
+      return new Trip(tripId, name, creationDate, firstPosition, steps);
     }
 
   }

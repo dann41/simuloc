@@ -6,5 +6,5 @@ import java.util.concurrent.CompletableFuture;
 
 public interface PositionPlayer {
 
-  CompletableFuture<Void> play(Position position);
+  void play(Position position);
 }

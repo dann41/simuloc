@@ -11,7 +11,6 @@ import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class TripPlayer implements TripPlayerObservable {
 
@@ -61,12 +60,8 @@ public class TripPlayer implements TripPlayerObservable {
 
     stepStarted(stepCalculator);
     for (Position position : stepCalculator.generatePositions()) {
-      try {
-        positionPlayer.play(position).get();
-        positionEmitted(position);
-      } catch (InterruptedException | ExecutionException e) {
-        throw new RuntimeException(e);
-      }
+      positionPlayer.play(position);
+      positionEmitted(position);
     }
     stepCompleted(stepCalculator);
   }

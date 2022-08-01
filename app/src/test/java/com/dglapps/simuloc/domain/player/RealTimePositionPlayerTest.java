@@ -1,16 +1,17 @@
 package com.dglapps.simuloc.domain.player;
 
 import com.dglapps.simuloc.domain.trip.Position;
-import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Clock;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.util.concurrent.CompletableFuture;
 
 import static com.dglapps.simuloc.utils.CoordinatesMother.BCN;
 import static com.dglapps.simuloc.utils.DurationMother.TEN_SECONDS;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class RealTimePositionPlayerTest {
 
@@ -24,16 +25,21 @@ public class RealTimePositionPlayerTest {
   }
 
   @Test
-  public void givenPositionInFutureWhenPlayingPositionThenWaitUntilTimeReached() {
+  public void givenPositionWhenPlayingPositionThenWaitUntilTimeReached() {
     OffsetDateTime now = OffsetDateTime.now(clock);
     Position positionIn10Seconds = Position.aBuilder(BCN)
         .withTime(now.plus(TEN_SECONDS))
         .build();
 
-    CompletableFuture<Void> task = this.positionPlayer.play(positionIn10Seconds);
+    assertDurationAtMost(() -> this.positionPlayer.play(positionIn10Seconds), TEN_SECONDS);
+  }
 
-    Awaitility.await().atMost(TEN_SECONDS).until(task::isDone);
+  void assertDurationAtMost(Runnable runnable, Duration atMostDuration) {
+    var start = LocalDateTime.now();
+    runnable.run();
+    var end = LocalDateTime.now();
 
+    assertThat(Duration.between(start, end)).isLessThan(atMostDuration);
   }
 
 }
